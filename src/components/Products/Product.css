@@ -1,0 +1,33 @@
+.products {
+    margin-top: 40px;
+}
+.product-card {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    height: 200px;
+    border: 1px solid gainsboro;
+    margin: 5px;
+    border-radius: 15px;
+}
+.product-card:hover .product-img {
+    transform: scale(1.1);
+}
+.product-card:hover .show-info{
+    display: block;
+}
+.show-info{
+    justify-content: center;
+    display: flex;
+    position: absolute;
+    margin-left: 200px;
+    display: none;
+}
+.link-product{
+    text-decoration: none;
+}
+.product-title{
+    font-size: 13px;
+    color: black;
+    font-weight: bold;
+}

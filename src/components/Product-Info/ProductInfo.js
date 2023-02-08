@@ -1,19 +1,33 @@
-import React from 'react'
-import { Col, Container, Row, Image, Table, Button } from 'react-bootstrap'
+import React, { useContext } from 'react'
+import { Col, Container, Row, Image, Table, Button, Spinner } from 'react-bootstrap'
 import './Product-Info.css'
-import ProductImage from '../../images/mzadkn.png'
+import { ProductsContext } from '../ProductContext/ProductContext'
+import { useParams } from 'react-router-dom'
 function ProductInfo() {
+    const { id } = useParams()
+    const { products } = useContext(ProductsContext);
+    const product = products.find((item) => {
+        return item.id === parseInt(id)
+    })
+    const { title, price, image, description } = product;
+    if (!product) {
+        return (
+            <div className='spinner-loading'>
+                <Spinner className='loading-animation' animation="grow" />;
+            </div>
+        )
+    }
     return (
         <div>
             <Container className='Product-Info'>
                 <Row>
                     <Col>
                         <Container className='Product-Title'>
-                            <h5>Product Title</h5>
+                            <h6 className='title-prodcut'>{title}</h6>
                         </Container>
                         <Container>
                             <div className='Product-Image'>
-                                <Image src={ProductImage} width={400} height={350} />
+                                <Image src={image} width={400} height={350} />
                             </div>
                         </Container>
                     </Col>
@@ -41,31 +55,7 @@ function ProductInfo() {
                             <h5>Product Information</h5>
                         </Container>
                         <Container className='Product-Information'>
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={2}>Larry the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </Table>
+                            {description}
                         </Container>
                     </Col>
                 </Row>
