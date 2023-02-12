@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image, Spinner } from 'react-bootstrap';
 import { BsFillEyeFill } from 'react-icons/bs'
+import { Bars, ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import './Product.css'
 export default function Products() {
@@ -25,7 +26,18 @@ export default function Products() {
     }, [])
     return (
         <div className='products'>
-            {isLoading ? <div className='loading'><Spinner className='loading-spinner' animation="grow" /></div>
+            {isLoading ? <div className='loading'>
+                <Bars
+                    height="120"
+                    width="120"
+                    radius="9"
+                    color="red"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                />
+            </div>
                 : <Container>
                     <Row>
                         {products.map((product) => (
@@ -38,9 +50,10 @@ export default function Products() {
                                         </Link>
                                     </div>
                                 </div>
-                                <div className='product-title'>
-                                    <h6>{product.title}</h6>
-                                </div>
+                                <Link className='title' to={`/product/${product.id}`}>
+                                    <h6 className='title-prodcut'>{product.title}</h6>
+                                </Link>
+
                                 <div>
                                     $ {product.price}
                                 </div>

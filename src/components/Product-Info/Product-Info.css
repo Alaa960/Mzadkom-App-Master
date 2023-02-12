@@ -16,12 +16,17 @@
 }
 .title-prodcut{
     font-size: 15px;
+    font-weight: bolder;
 }
 .Product-Image {
     margin-top: 15px;
     width: 100%;
     height: 350px;
-    background-color: red;
+    display: flex;
+    justify-content: center;
+}
+.Product-Image:hover .product-img {
+    transform: scale(1.2);
 }
 .Product-Bidding {
     margin-top: 15px;
@@ -84,4 +89,12 @@
     width: 150px;
     height: 150px;
     color: #f44336;
+}
+.title {
+    text-decoration: none;
+    color: black;
+}
+.title:hover {
+    text-decoration: none;
+    color: black;
 }
