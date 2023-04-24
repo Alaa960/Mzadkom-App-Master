@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Resgister.css'
 import { Container, Form, Button } from 'react-bootstrap'
-
+import axios from 'axios'
+import NavBar from '../Navbar/Navbar'
 function Register() {
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const data = {
+        name: name,
+        email: email,
+        password: password,
+        phone: phone,
+        isAdmin: false
+    }
+    const RegisterUser = () => {
+        axios.post('http://localhost:3001/api/users/register', data)
+            .then(res => {
+                if (res.status === 200) {
+                    alert("Registered successfully !")
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     return (
         <Container>
+            <NavBar />
             <div className='register-Logo'>
                 <h3 className='register-title'>Register</h3>
             </div>
@@ -19,6 +43,8 @@ function Register() {
                             >
                                 <Form.Label>User Name</Form.Label>
                                 <Form.Control
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
                                     type="text"
                                     placeholder="Enter your name "
                                 />
@@ -27,6 +53,8 @@ function Register() {
                             <Form.Group className="mt-3 emailEmployee">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
                                     type="email"
                                     placeholder="Enter your email"
                                 />
@@ -39,6 +67,8 @@ function Register() {
                         <Form.Group className="mt-3">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
                                 type="password"
                                 placeholder="Enter your password"
                             />
@@ -46,15 +76,10 @@ function Register() {
                         <Form.Group className="mt-3">
                             <Form.Label>Phone Number</Form.Label>
                             <Form.Control
+                                value={phone}
+                                onChange={e => setPhone(e.target.value)}
                                 type="text"
                                 placeholder="Enter your phone number"
-                            />
-                        </Form.Group>
-                        <Form.Group className="mt-3">
-                            <Form.Label>Adrress</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder='Enter your address....'
                             />
                         </Form.Group>
                         {/* Button for add the employee */}
@@ -62,6 +87,7 @@ function Register() {
                             className="mt-3"
                             type="button"
                             variant="outline-danger"
+                            onClick={RegisterUser}
                         >
                             Resgister
                         </Button>

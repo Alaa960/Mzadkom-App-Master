@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Image, Spinner } from 'react-bootstrap';
+import { Col, Container, Row, Image } from 'react-bootstrap';
 import { BsFillEyeFill } from 'react-icons/bs'
-import { Bars, ThreeDots } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import './Product.css'
 export default function Products() {
@@ -11,10 +11,11 @@ export default function Products() {
     useEffect(() => {
         const GetAllProducts = () => {
             setIsLoading(true)
-            axios.get('https://fakestoreapi.com/products')
+            axios.get('http://localhost:3001/api/products/products')
                 .then(res => {
                     setTimeout(() => {
-                        setProducts(res.data)
+                        setProducts(res.data.products)
+                        setProducts(res.data.images)
                         setIsLoading(false)
                     }, 3000)
                 })
@@ -27,7 +28,7 @@ export default function Products() {
     return (
         <div className='products'>
             {isLoading ? <div className='loading'>
-                <Bars
+                <ThreeDots
                     height="120"
                     width="120"
                     radius="9"
@@ -41,21 +42,21 @@ export default function Products() {
                 : <Container>
                     <Row>
                         {products.map((product) => (
-                            <Col key={product.id}>
+                            <Col key={product.product_id}>
                                 <div className='product-card'>
-                                    <Image src={product.image} width={120} height={120} className='product-img' />
+                                    <Image key={product.file_id} src={product.new_name} width='120' height='120' className='product-img' />
                                     <div className='show-info'>
-                                        <Link to={`/product/${product.id}`} className='Info'>
+                                        <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />
                                         </Link>
                                     </div>
                                 </div>
-                                <Link className='title' to={`/product/${product.id}`}>
+                                <Link className='title' to={`/product/${product.product_id}`}>
                                     <h6 className='title-prodcut'>{product.title}</h6>
                                 </Link>
 
                                 <div>
-                                    $ {product.price}
+                                    $ {product.initial_price}
                                 </div>
                             </Col>
                         ))}

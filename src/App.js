@@ -3,14 +3,13 @@ import './App.css';
 import Home from './components/Home-Page/Home';
 import HowToBuy from './components/HowToBuy/HowToBuy';
 import Login from './components/Login/Login';
-import NavBar from './components/Navbar/Navbar';
 import Register from './components/SignUp-page/Register';
 import WhoWeAre from './components/WhoWeAre/WhoWeAre';
 import ProductInfo from './components/Product-Info/ProductInfo';
+import Profile from './components/Profile/Profile';
 function App() {
   return (
     <div>
-      <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/howtobuy' element={<HowToBuy />} />
@@ -18,6 +17,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/product/:id' element={<ProductInfo />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </div>
   );

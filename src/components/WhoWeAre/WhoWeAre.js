@@ -1,9 +1,11 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './WhoWeAre.css'
+import NavBar from '../Navbar/Navbar'
 function WhoWeAre() {
     return (
         <div>
+            <NavBar />
             <Container className='Title-who-we-are'>
                 <Row>
                     <Col>

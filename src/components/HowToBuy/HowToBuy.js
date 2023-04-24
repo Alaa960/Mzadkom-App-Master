@@ -1,9 +1,11 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import './HowToBuy.css'
+import NavBar from '../Navbar/Navbar'
 function HowToBuy() {
     return (
         <div>
+            <NavBar />
             <Container className='Title-how-to-buy'>
                 <Row>
                     <Col>
