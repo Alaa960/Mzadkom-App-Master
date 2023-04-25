@@ -13,7 +13,7 @@ function NavBar() {
         <Container fluid='true'>
             <Navbar bg="light" expand="lg" className='navbar-home navbar justify-content-start'>
                 <Container>
-                    <Link to='/'><Image alt='ourwebsite' src={logo} width={330} height={80} /></Link>
+                    <Link to='/home'><Image alt='ourwebsite' src={logo} width={330} height={80} /></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                         <Nav className='navs'>

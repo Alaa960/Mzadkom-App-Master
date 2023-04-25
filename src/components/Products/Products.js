@@ -15,7 +15,6 @@ export default function Products() {
                 .then(res => {
                     setTimeout(() => {
                         setProducts(res.data.products)
-                        setProducts(res.data.images)
                         setIsLoading(false)
                     }, 3000)
                 })
@@ -41,10 +40,10 @@ export default function Products() {
             </div>
                 : <Container>
                     <Row>
-                        {products.map((product) => (
+                        {products.map(product => (
                             <Col key={product.product_id}>
                                 <div className='product-card'>
-                                    <Image key={product.file_id} src={product.new_name} width='120' height='120' className='product-img' />
+                                    <Image src={product.new_name} width={120} height={120} className='product-img' />
                                     <div className='show-info'>
                                         <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />
