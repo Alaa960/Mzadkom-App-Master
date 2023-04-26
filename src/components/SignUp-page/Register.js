@@ -3,6 +3,7 @@ import './Resgister.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import NavBar from '../Navbar/Navbar'
+import { Link } from 'react-router-dom'
 function Register() {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
@@ -28,7 +29,6 @@ function Register() {
     }
     return (
         <Container>
-            <NavBar />
             <div className='register-Logo'>
                 <h3 className='register-title'>Register</h3>
             </div>
@@ -92,8 +92,14 @@ function Register() {
                             Resgister
                         </Button>
                     </Form>
+                    <div className='Login'>
+                        <h4 className='title-login'>Already have an account?</h4>
+                        <Link className='btn-login' to='/'>Login Now !</Link>
+                    </div>
                 </div>
+
             </Container>
+
         </Container>
     )
 }

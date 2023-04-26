@@ -38,3 +38,26 @@
 .emailEmployee{
     margin-left: 15px;
 }
+.Login {
+    display : flex;
+}
+.Login {
+    margin-top: 50px;
+}
+.title-login {
+    font-size: 25px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+.btn-login {
+    margin-left: 5px;
+    font-size: 20px;
+    text-decoration : none;
+    color : #f44336;
+}
+.btn-login:hover {
+    margin-left: 5px;
+    font-size: 20px;
+    text-decoration : none;
+    color : #f44336;
+}

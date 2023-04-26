@@ -4,6 +4,7 @@ import 'react-clock/dist/Clock.css';
 import axios from 'axios';
 import { getTokens } from '../../services/LocalStorage'
 import UserNavBar from '../UserNavBar/UserNavBar';
+import NavBar from '../Navbar/Navbar';
 export default function AddProduct() {
     const [productName, setProductName] = useState('')
     const [productInitialPrice, setProductInitialPrice] = useState()
@@ -34,7 +35,7 @@ export default function AddProduct() {
     }
     return (
         <div>
-            <UserNavBar />
+            <NavBar />
             <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-12'>

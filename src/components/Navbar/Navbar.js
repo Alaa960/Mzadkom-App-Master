@@ -5,10 +5,14 @@ import {
     Container,
     Image
 } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../images/mzadkn.png'
 import './NavBar.css'
+import { removeTokens } from '../../services/LocalStorage'
 function NavBar() {
+    const LogOut = () => {
+        removeTokens()
+    }
     return (
         <Container fluid='true'>
             <Navbar bg="light" expand="lg" className='navbar-home navbar justify-content-start'>
@@ -17,16 +21,14 @@ function NavBar() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                         <Nav className='navs'>
-                            <Link to='/' className='home-link'>Home</Link>
+                            <Link to='/home' className='home-link'>Home</Link>
                             <Link to='/howtobuy' className='home-link'>How to buy</Link>
                             <Link to='/whoweare' className='home-link'>Who we are</Link>
+                            <Link to='/addProduct' className='home-link'>Add Product</Link>
                         </Nav>
                     </Navbar.Collapse>
                     <Navbar.Collapse className='justidy-content-end'>
-                        <Nav>
-                            <Link to='/login' className='home-link'>Login</Link>
-                            <Link to='/register' className='home-link'>Register</Link>
-                        </Nav>
+                        <Link to='/' onClick={LogOut} className='home-link'>Log Out</Link>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

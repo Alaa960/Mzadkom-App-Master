@@ -5,16 +5,16 @@ import { Bars } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom'
 import './Product-Info.css'
 function ProductInfo() {
-    const { id } = useParams()
+    const { product_id } = useParams()
     const [prodcut, setProduct] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         const GetProductInformation = () => {
             setIsLoading(true)
-            axios.get(`https://fakestoreapi.com/products/${id}`)
+            axios.get(`http://localhost:3001/api/products/product/${product_id}`)
                 .then(res => {
                     setTimeout(() => {
-                        setProduct(res.data)
+                        console.log(res.data)
                         setIsLoading(false)
                     }, 2000)
                 })
@@ -23,7 +23,7 @@ function ProductInfo() {
                 })
         }
         GetProductInformation()
-    }, [id])
+    }, [product_id])
     return (
         <div>
             {isLoading ?

@@ -35,6 +35,31 @@
 .nameEmployee{
     margin-left: 10px;
 }
+.passwordUser {
+    width : 500px;
+    margin-left : 15px;
+}
 .emailEmployee{
     margin-left: 15px;
+    width : 500px;
+}
+.register {
+    margin-top: 50px;
+    display : flex;
+}
+.title-register {
+    font-size: 25px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+.btn-register {
+    margin-left: 5px;
+    font-size: 20px;
+    text-decoration : none;
+    color : #f44336;
+}
+.btn-register:hover {
+    font-size: 20px;
+    text-decoration : none;
+    color : #f44336;
 }

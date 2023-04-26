@@ -38,10 +38,10 @@ export default function Products() {
                     visible={true}
                 />
             </div>
-                : <Container>
-                    <Row>
+                : <div className='container'>
+                    <div className='row'>
                         {products.map(product => (
-                            <Col key={product.product_id}>
+                            <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
                                     <Image src={product.new_name} width={120} height={120} className='product-img' />
                                     <div className='show-info'>
@@ -57,10 +57,10 @@ export default function Products() {
                                 <div>
                                     $ {product.initial_price}
                                 </div>
-                            </Col>
+                            </div>
                         ))}
-                    </Row>
-                </Container>
+                    </div>
+                </div>
             }
         </div>
     )

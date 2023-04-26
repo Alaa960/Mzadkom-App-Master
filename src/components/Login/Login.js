@@ -3,7 +3,7 @@ import './Login.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SetToken } from '../../services/LocalStorage'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../Navbar/Navbar'
 function Login() {
     const [email, setEmail] = useState('')
@@ -19,7 +19,7 @@ function Login() {
                 SetToken(res.data)
                 console.log(res.data)
                 if (res.status === 200) {
-                    navigate('../profile')
+                    navigate('../home')
                 }
             })
             .catch(err => {
@@ -28,7 +28,6 @@ function Login() {
     }
     return (
         <Container>
-            <NavBar />
             <div className='register-Logo'>
                 <h3 className='register-title'>Login</h3>
             </div>
@@ -48,7 +47,7 @@ function Login() {
                             </Form.Group>
                         </div>
                         {/* this input form for the employee passowrd */}
-                        <Form.Group className="mt-3">
+                        <Form.Group className="mt-3 passwordUser">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
                                 value={password}
@@ -59,7 +58,7 @@ function Login() {
                         </Form.Group>
                         {/* Button for add the employee */}
                         <Button
-                            className="mt-3"
+                            className="mt-3 BTN-login"
                             type="button"
                             variant="outline-danger"
                             onClick={RegisterUser}
@@ -67,8 +66,13 @@ function Login() {
                             Login
                         </Button>
                     </Form>
+                    <div className='register'>
+                        <h4 className='title-register'>Don't have an account?</h4>
+                        <Link className='btn-register' to='/register'>Register</Link>
+                    </div>
                 </div>
             </Container>
+
         </Container>
     )
 }
