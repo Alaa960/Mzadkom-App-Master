@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Login.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SetToken } from '../../services/LocalStorage'
 import { Link, useNavigate } from 'react-router-dom'
-import NavBar from '../Navbar/Navbar'
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -27,6 +26,7 @@ function Login() {
             })
     }
     return (
+
         <Container>
             <div className='register-Logo'>
                 <h3 className='register-title'>Login</h3>
@@ -74,6 +74,7 @@ function Login() {
             </Container>
 
         </Container>
+
     )
 }
 

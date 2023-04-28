@@ -3,18 +3,24 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image, Button, Spinner } from 'react-bootstrap'
 import { Bars } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom'
+import { getTokens } from '../../services/LocalStorage'
 import './Product-Info.css'
 function ProductInfo() {
     const { product_id } = useParams()
     const [prodcut, setProduct] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const config = {
+        headers: {
+            token: getTokens()
+        }
+    }
     useEffect(() => {
         const GetProductInformation = () => {
             setIsLoading(true)
-            axios.get(`http://localhost:3001/api/products/product/${product_id}`)
+            axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
                 .then(res => {
                     setTimeout(() => {
-                        console.log(res.data)
+                        setProduct(res.data.product)
                         setIsLoading(false)
                     }, 2000)
                 })
@@ -47,7 +53,7 @@ function ProductInfo() {
                             </Container>
                             <Container>
                                 <div className='Product-Image'>
-                                    <Image className='mt-4 product-img' src={prodcut.image} width={250} height={250} />
+                                    <Image className='mt-4 product-img' src={prodcut.new_name} width={250} height={250} />
                                 </div>
                             </Container>
                         </Col>
@@ -75,7 +81,7 @@ function ProductInfo() {
                                 <h5>Product Information</h5>
                             </Container>
                             <Container className='Product-Information'>
-                                <h6>{prodcut.description}</h6>
+                                <h6>{prodcut.category}</h6>
                             </Container>
                         </Col>
                     </Row>
