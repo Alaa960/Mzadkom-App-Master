@@ -25,7 +25,7 @@ function NavBar() {
                             <Link to='/howtobuy' className='home-link'>How to buy</Link>
                             <Link to='/whoweare' className='home-link'>Who we are</Link>
                             <Link to='/addProduct' className='home-link'>Add Product</Link>
-                            <Link to='/yourproducts/:user_id' className='home-link'>Your Products</Link>
+                            <Link to='/yourproducts' className='home-link'>Your Products</Link>
                         </Nav>
                     </Navbar.Collapse>
                     <Navbar.Collapse className='justidy-content-end'>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Login.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
-import { SetToken } from '../../services/LocalStorage'
+import { SetToken, SetUser } from '../../services/LocalStorage'
 import { Link, useNavigate } from 'react-router-dom'
 function Login() {
     const [email, setEmail] = useState('')
@@ -16,7 +16,7 @@ function Login() {
         axios.post('http://localhost:3001/api/auth/login', data)
             .then(res => {
                 SetToken(res.data)
-                console.log(res.data)
+                SetUser(res.data)
                 if (res.status === 200) {
                     navigate('../home')
                 }
