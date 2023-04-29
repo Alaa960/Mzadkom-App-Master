@@ -1,0 +1,32 @@
+.img-empty {
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    left: 40%;
+    margin-top:10px ;
+} 
+.alert {
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    margin-top: 10px;
+}
+.alert .alert-title {
+    color: black;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.make-an-auction {
+    text-decoration : none;
+    font-size: 25px;
+    color: green;
+    margin-left: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.make-an-auction:hover {
+    text-decoration : none;
+    font-size: 25px;
+    color: green;
+    margin-left: 10px;    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

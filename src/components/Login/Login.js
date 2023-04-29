@@ -13,6 +13,7 @@ function Login() {
         password: password,
     }
     const RegisterUser = () => {
+
         axios.post('http://localhost:3001/api/auth/login', data)
             .then(res => {
                 SetToken(res.data)
@@ -20,10 +21,10 @@ function Login() {
                 if (res.status === 200) {
                     navigate('../home')
                 }
-            })
-            .catch(err => {
+            }).catch(err => {
                 console.log(err)
             })
+
     }
     return (
 
@@ -46,6 +47,7 @@ function Login() {
                                 />
                             </Form.Group>
                         </div>
+
                         {/* this input form for the employee passowrd */}
                         <Form.Group className="mt-3 passwordUser">
                             <Form.Label>Password</Form.Label>
@@ -56,6 +58,7 @@ function Login() {
                                 placeholder="Enter your password"
                             />
                         </Form.Group>
+
                         {/* Button for add the employee */}
                         <Button
                             className="mt-3 BTN-login"

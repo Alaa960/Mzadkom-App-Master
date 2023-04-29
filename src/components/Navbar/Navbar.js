@@ -3,15 +3,17 @@ import {
     Navbar,
     Nav,
     Container,
-    Image
+    Image,
+    NavDropdown
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import logo from '../../images/mzadkn.png'
 import './NavBar.css'
-import { removeTokens } from '../../services/LocalStorage'
+import { removeTokens, removeUser } from '../../services/LocalStorage'
 function NavBar() {
     const LogOut = () => {
         removeTokens()
+        removeUser()
     }
     return (
         <Container fluid='true'>
@@ -24,11 +26,18 @@ function NavBar() {
                             <Link to='/home' className='home-link'>Home</Link>
                             <Link to='/howtobuy' className='home-link'>How to buy</Link>
                             <Link to='/whoweare' className='home-link'>Who we are</Link>
-                            <Link to='/addProduct' className='home-link'>Add Product</Link>
-                            <Link to='/yourproducts' className='home-link'>Your Products</Link>
+
                         </Nav>
+                        <NavDropdown style={{ zIndex: 1 }} title='Services' className='home-link'>
+                            <NavDropdown.Item>
+                                <Link to='/addProduct' className='home-link'>Add Product</Link>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item>
+                                <Link to='/yourproducts' className='home-link'>Your Products</Link>
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Navbar.Collapse>
-                    <Navbar.Collapse className='justidy-content-end'>
+                    <Navbar.Collapse className='justify-content-end'>
                         <Link to='/' onClick={LogOut} className='home-link'>Log Out</Link>
                     </Navbar.Collapse>
                 </Container>

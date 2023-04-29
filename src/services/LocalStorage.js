@@ -15,3 +15,6 @@ export const SetUser = (user) => {
 export const getUser = () => {
     return localStorage.getItem(User)
 }
+export const removeUser = () => {
+    return localStorage.removeItem(User)
+}
