@@ -7,7 +7,6 @@ import './UserProducts.css'
 import { useNavigate } from 'react-router-dom'
 export default function UserProducts() {
     const [userProducts, setUserProducts] = useState([])
-    const navigate = useNavigate()
     const config = {
         headers: {
             token: getTokens()
@@ -36,7 +35,7 @@ export default function UserProducts() {
     useEffect(() => (
         GetUserProducts(),
         DeleteProduct()
-    ), [DeleteProduct])
+    ), [])
     return (
         <div>
             <NavBar />

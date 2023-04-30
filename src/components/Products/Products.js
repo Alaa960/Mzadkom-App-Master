@@ -43,7 +43,7 @@ export default function Products() {
                         {products.map(product => (
                             <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
-                                    <Image src={product.new_name} width={120} height={120} className='product-img' />
+                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} className='product-img' />
                                     <div className='show-info'>
                                         <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />

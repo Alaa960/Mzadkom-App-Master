@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Image, Button, Spinner } from 'react-bootstrap'
+import { Col, Container, Row, Image, Button } from 'react-bootstrap'
 import { Bars } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom'
 import { getTokens } from '../../services/LocalStorage'
 import './Product-Info.css'
+import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
     const { product_id } = useParams()
     const [prodcut, setProduct] = useState([])
@@ -32,7 +33,9 @@ function ProductInfo() {
     }, [product_id])
     return (
         <div>
+            <NavBar />
             {isLoading ?
+
                 <div className='spinner-loading'>
                     <Bars
                         height="120"
@@ -53,7 +56,7 @@ function ProductInfo() {
                             </Container>
                             <Container>
                                 <div className='Product-Image'>
-                                    <Image className='mt-4 product-img' src={prodcut.new_name} width={250} height={250} />
+                                    <Image className='mt-4 product-img' src={`http://localhost:3001/${prodcut.new_name}`} width={250} height={250} />
                                 </div>
                             </Container>
                         </Col>
