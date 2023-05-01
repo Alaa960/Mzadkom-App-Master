@@ -8,7 +8,8 @@ import './Product-Info.css'
 import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
     const { product_id } = useParams()
-    const [prodcut, setProduct] = useState([])
+    const [greaterMount, setGreaterMount] = useState('')
+    const [product, setProduct] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const config = {
         headers: {
@@ -29,8 +30,19 @@ function ProductInfo() {
                     console.log(err)
                 })
         }
-        GetProductInformation()
+        const getGreateMountAuction = () => {
+            axios.get(`http://localhost:3001/api/products/maxauctionmount/${product_id}`)
+                .then(res => {
+                    setGreaterMount(res.data.result.mount_auction)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        getGreateMountAuction()
+        GetProductInformation();
     }, [product_id])
+
     return (
         <div>
             <NavBar />
@@ -52,11 +64,11 @@ function ProductInfo() {
                     <Row>
                         <Col>
                             <Container className='Product-Title'>
-                                <h6 className='title-prodcut'>{prodcut.title}</h6>
+                                <h6 className='title-prodcut'>{product.title}</h6>
                             </Container>
                             <Container>
                                 <div className='Product-Image'>
-                                    <Image className='mt-4 product-img' src={`http://localhost:3001/${prodcut.new_name}`} width={250} height={250} />
+                                    <Image className='mt-4 product-img' src={`http://localhost:3001/${product.new_name}`} width={250} height={250} />
                                 </div>
                             </Container>
                         </Col>
@@ -84,14 +96,17 @@ function ProductInfo() {
                                 <h5>Product Information</h5>
                             </Container>
                             <Container className='Product-Information'>
-                                <h6>{prodcut.category}</h6>
+                                <div className='category'>
+                                    <h6>{product.category}</h6>
+                                </div>
+                                <br />
+                                <p>{greaterMount}</p>
                             </Container>
                         </Col>
                     </Row>
                 </Container>
             }
-        </div>
+        </div >
     )
 }
-
 export default ProductInfo

@@ -11,7 +11,6 @@ export default function AddProduct() {
     const [productTime, setProductTime] = useState('')
     const [productCategory, setProductCategory] = useState('')
     const [productPhoto, setProductPhoto] = useState([])
-
     const config = {
         headers: {
             token: getTokens(),
@@ -84,7 +83,7 @@ export default function AddProduct() {
                                     onChange={e => setProductTime(e.target.value)}
                                     className='form-control'
                                     placeholder='Enter the time'
-                                    type='text'
+                                    type='datetime-local'
                                 />
                                 <input
                                     type='file'
