@@ -5,13 +5,19 @@ import { BsFillEyeFill } from 'react-icons/bs'
 import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import './Product.css'
+import { getTokens } from '../../services/LocalStorage';
 export default function Products() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
+    const config = {
+        headers: {
+            token: getTokens()
+        }
+    }
     useEffect(() => {
         const GetAllProducts = () => {
             setIsLoading(true)
-            axios.get('http://localhost:3001/api/products/products')
+            axios.get('http://localhost:3001/api/products/products', config)
                 .then(res => {
                     setTimeout(() => {
                         setProducts(res.data.products)
@@ -43,7 +49,7 @@ export default function Products() {
                         {products.map(product => (
                             <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
-                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} className='product-img' />
+                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} width={120} height={120} className='product-img' />
                                     <div className='show-info'>
                                         <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />

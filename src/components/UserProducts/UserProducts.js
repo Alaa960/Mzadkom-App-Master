@@ -35,7 +35,7 @@ export default function UserProducts() {
     useEffect(() => (
         GetUserProducts(),
         DeleteProduct()
-    ), [])
+    ), [DeleteProduct])
     return (
         <div>
             <NavBar />
@@ -43,7 +43,7 @@ export default function UserProducts() {
                 <div className='row'>
                     {userProducts.map((products => (
                         <div key={products.product_id} className='col-4 card '>
-                            <img className='card-img-top product-img' src={products.new_name} alt={products.title} />
+                            <img className='card-img-top product-img' src={`http://localhost:3001/${products.new_name}`} alt={products.title} />
                             <div className='card-body'>
                                 <h5 className='card-title'>{products.title}</h5>
                                 <h6 className='card-text'>{products.category}</h6>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Image, Button } from 'react-bootstrap'
+import { Col, Container, Row, Image } from 'react-bootstrap'
 import { Bars } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom'
 import { getTokens } from '../../services/LocalStorage'
@@ -9,12 +9,38 @@ import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
     const { product_id } = useParams()
     const [greaterMount, setGreaterMount] = useState('')
+    const [mount_auction, setMountAuction] = useState('')
     const [product, setProduct] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const config = {
         headers: {
             token: getTokens()
         }
+    }
+    const data = {
+        mount_auction: mount_auction
+    }
+    //make an auction
+    const MakeAnAuction = () => {
+        axios.post(`http://localhost:3001/api/products/auction/${product_id}`, data, config)
+            .then(res => {
+                console.log(res.data)
+                setMountAuction(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+    //get greate mount auction
+    const getGreateMountAuction = () => {
+        axios.get(`http://localhost:3001/api/products/maxauctionmount/${product_id}`)
+            .then(res => {
+                setInterval(() => {
+                    setGreaterMount(res.data.result.mount_auction)
+                }, 1000)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     useEffect(() => {
         const GetProductInformation = () => {
@@ -30,18 +56,11 @@ function ProductInfo() {
                     console.log(err)
                 })
         }
-        const getGreateMountAuction = () => {
-            axios.get(`http://localhost:3001/api/products/maxauctionmount/${product_id}`)
-                .then(res => {
-                    setGreaterMount(res.data.result.mount_auction)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-        getGreateMountAuction()
+
+
+        getGreateMountAuction();
         GetProductInformation();
-    }, [product_id])
+    }, [])
 
     return (
         <div>
@@ -82,10 +101,10 @@ function ProductInfo() {
                                         <h6 className='label'>Bidding Mount</h6>
                                     </div>
                                     <div className='Bidding-Mounts'>
-                                        <input className='Input-Bidding-Mount' type='text' placeholder='Enter you bidding amount' />
+                                        <input className='Input-Bidding-Mount' type='text' placeholder='Enter you bidding amount' value={mount_auction} onChange={e => setMountAuction(e.target.value)} />
                                     </div>
                                     <div className='Product-Actions'>
-                                        <Button variant='outline-danger'>Bid Now</Button>
+                                        <button onClick={MakeAnAuction} className='btn btn-outline-danger'>Bid Now</button>
                                     </div>
                                 </div>
 

@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const data = {
         email: email,
@@ -22,7 +23,7 @@ function Login() {
                     navigate('../home')
                 }
             }).catch(err => {
-                console.log(err)
+                console.log(err.response.data)
             })
 
     }
@@ -45,6 +46,7 @@ function Login() {
                                     type="email"
                                     placeholder="Enter your email"
                                 />
+                                <p style={{ color: 'red' }}>{error}</p>
                             </Form.Group>
                         </div>
 
@@ -57,6 +59,7 @@ function Login() {
                                 type="password"
                                 placeholder="Enter your password"
                             />
+                            <p style={{ color: 'red' }}>{error}</p>
                         </Form.Group>
 
                         {/* Button for add the employee */}
