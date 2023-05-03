@@ -4,18 +4,22 @@
 .product-card {
     display: flex;
     justify-content: center;
-    width: 350px;
-    height: 250px;
+    width: 220px;
+    height: 180px;
     border: 1px solid gainsboro;
     margin: 5px;
     border-radius: 15px;
 }
-.product-img {
+.product-card img {
     margin-top: 30px;
+    border-radius: 15px;
 }
-.product-card:hover .product-img {
+.product-card:hover img {
     transform: scale(1.1);
+    margin-top: 30px;
+    border-radius: 15px;
 }
+
 .product-card:hover .show-info{
     display: block;
 }
@@ -28,15 +32,17 @@
 }
 .Info {
     color: black;
+    margin-right: 10px;
 }
 .Info:hover{
+    margin-right: 10px;
     color: black;
 }
 .link-product{
     text-decoration: none;
 }
 .product-title{
-    font-size: 10px;
+    font-size: 20px;
     color: black;
     font-weight: bold;
 }

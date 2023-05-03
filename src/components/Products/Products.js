@@ -49,17 +49,17 @@ export default function Products() {
                         {products.map(product => (
                             <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
-                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} width={120} height={120} className='product-img' />
+                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} width={120} height={120} />
                                     <div className='show-info'>
                                         <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />
                                         </Link>
                                     </div>
+
                                 </div>
                                 <Link className='title' to={`/product/${product.product_id}`}>
-                                    <h6 className='title-prodcut'>{product.title}</h6>
+                                    <h6 className='product-title'>{product.title}</h6>
                                 </Link>
-
                                 <div>
                                     $ {product.initial_price}
                                 </div>
