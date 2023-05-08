@@ -10,6 +10,7 @@ export default function AddProduct() {
     const [productInitialPrice, setProductInitialPrice] = useState()
     const [productTime, setProductTime] = useState('')
     const [productCategory, setProductCategory] = useState('')
+    const [productDescription, setProductDescription] = useState('')
     const [productPhoto, setProductPhoto] = useState([])
     const config = {
         headers: {
@@ -25,11 +26,12 @@ export default function AddProduct() {
     body.append('category', productCategory)
     body.append('initial_price', productInitialPrice)
     body.append('time', productTime)
-
+    body.append('description', productDescription)
     const AddProducts = () => {
         axios.post('http://localhost:3001/api/products/add', body, config)
             .then(res => {
                 console.log(res.data)
+
             })
     }
     return (
@@ -73,6 +75,12 @@ export default function AddProduct() {
                                     type='text'
                                     className='form-control'
                                     placeholder='Product Category' />
+                                <input
+                                    value={productDescription}
+                                    onChange={e => setProductDescription(e.target.value)}
+                                    type='text'
+                                    className='form-control'
+                                    placeholder='Product Description' />
                             </div>
                             <div className='mb-3'>
                                 <label className='form-label'>
@@ -96,6 +104,6 @@ export default function AddProduct() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

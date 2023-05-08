@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image } from 'react-bootstrap'
-import { Bars } from 'react-loader-spinner'
 import { useParams } from 'react-router-dom'
 import { getTokens } from '../../services/LocalStorage'
 import './Product-Info.css'
@@ -10,6 +9,11 @@ function ProductInfo() {
     const { product_id } = useParams()
     const [greaterMount, setGreaterMount] = useState('')
     const [mount_auction, setMountAuction] = useState('')
+    const [dateTime, setDateTime] = useState('')
+    const [differenceHoures, setDifferenceHoures] = useState();
+    const [differenceMin, setDifferenceMin] = useState();
+    const [differenceSec, setDifferenceSec] = useState();
+    const [report, setReport] = useState('')
     const [product, setProduct] = useState([])
     const config = {
         headers: {
@@ -19,8 +23,12 @@ function ProductInfo() {
     const data = {
         mount_auction: mount_auction
     }
+    const reports = {
+        report: report,
+        user_id: product.user_id
+    }
     //make an auction
-    const MakeAnAuction = () => {
+    const MakeAnAuction = (user_id) => {
         axios.post(`http://localhost:3001/api/products/auction/${product_id}`, data, config)
             .then(res => {
                 console.log(res.data)
@@ -39,21 +47,43 @@ function ProductInfo() {
                 console.log(err)
             })
     }
+    //make a report
+    const MakeReport = () => {
+        axios.post('htpp://localhost:3001/api/reports/report', reports, config)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+    const counter = () => {
+        const dateNow = new Date()
+        const dateTwo = new Date(dateTime)
+        const differenceInMs = dateTwo.getTime() - dateNow.getTime()
+        let hours = Math.floor(differenceInMs / (1000 * 60 * 60));
+        let minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+        setDifferenceHoures(`${hours} hours`);
+        setDifferenceMin(`${minutes} minutes`);
+        setDifferenceSec(`${seconds} seconds`);
+    }
+    setInterval(counter, 1000)
     useEffect(() => {
         const GetProductInformation = () => {
             axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
                 .then(res => {
                     setProduct(res.data.product)
+                    setDateTime(res.data.product.time)
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
 
-
         getGreateMountAuction();
         GetProductInformation();
-    }, [config, getGreateMountAuction, product_id])
+    }, [])
 
     return (
         <div>
@@ -99,11 +129,24 @@ function ProductInfo() {
                                 <h6>{product.category}</h6>
                             </div>
                             <br />
+                            <p>{differenceHoures}</p>
+                            <p>{differenceMin}</p>
+                            <p>{differenceSec}</p>
                             <p>{greaterMount}</p>
                         </Container>
                     </Col>
                 </Row>
             </Container>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-lg-6 col-md-6 col-sm-12'>
+                        <p>this product for {product.name}</p>
+                        <textarea value={report} onChange={e => setReport(e.target.value)}></textarea>
+                        <button className='btn btn-danger' onClick={() => MakeReport(product.user_id)}>report the user</button>
+                    </div>
+
+                </div>
+            </div>
         </div >
     )
 }

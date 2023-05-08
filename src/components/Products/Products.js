@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Row, Image } from 'react-bootstrap';
 import { BsFillEyeFill } from 'react-icons/bs'
 import { ThreeDots } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
@@ -22,7 +21,7 @@ export default function Products() {
                     setTimeout(() => {
                         setProducts(res.data.products)
                         setIsLoading(false)
-                    }, 3000)
+                    }, 1000)
                 })
                 .catch(err => {
                     console.log(err)

@@ -20,7 +20,7 @@ function Login() {
                 SetToken(res.data)
                 SetUser(res.data)
                 if (res.status === 200) {
-                    navigate('../home')
+                    { res.data.user.isAdmin === 0 ? navigate('../home') : navigate('../register') }
                 }
             }).catch(err => {
                 console.log(err.response.data)
