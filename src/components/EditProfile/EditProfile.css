@@ -1,0 +1,23 @@
+.edit-form {
+    width: 700px;
+    height: 500px;
+    background: #e0e0e0;
+    margin-left: 410px;
+    margin-top: 50px;
+    align-items: center;
+    justify-content: center;
+}
+.inputs {
+    padding: 15px;
+}
+.namelInput {
+    width: 250px;
+}
+.emailInput {
+    width: 250px;
+    margin-left: 50px;
+}
+.passwordInput {
+    width: 250px;
+    margin-left: 100px;
+}

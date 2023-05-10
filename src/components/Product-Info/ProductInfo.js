@@ -49,7 +49,6 @@ function ProductInfo() {
     }
     //make a report
     const MakeReport = (user_id) => {
-        console.log(user_id)
         axios.post(`http://localhost:3001/api/reports/report/${user_id}`, reports, config)
             .then(res => {
                 console.log(res.data)
@@ -113,7 +112,13 @@ function ProductInfo() {
                                     {product.user_id}
                                 </div>
                                 <div className='Bidding-Mounts'>
-                                    <input className='Input-Bidding-Mount' type='text' placeholder='Enter you bidding amount' value={mount_auction} onChange={e => setMountAuction(e.target.value)} />
+                                    {/* this input for making auction */}
+                                    <input
+                                        className='Input-Bidding-Mount'
+                                        type='text' placeholder='Enter you bidding amount'
+                                        value={mount_auction}
+                                        onChange={e => setMountAuction(e.target.value)}
+                                    />
                                 </div>
                                 <div className='Product-Actions'>
                                     <button onClick={MakeAnAuction} className='btn btn-outline-danger'>Bid Now</button>
@@ -143,6 +148,7 @@ function ProductInfo() {
                 <div className='row'>
                     <div className='col-lg-6 col-md-6 col-sm-12'>
                         <p>this product for {product.name}</p>
+                        {/* this input for making report */}
                         <input
                             placeholder='enter you report description'
                             value={report_content}
@@ -150,7 +156,6 @@ function ProductInfo() {
                         />
                         <button className='btn btn-danger' onClick={() => MakeReport(product.user_id)}>report the user</button>
                     </div>
-
                 </div>
             </div>
         </div >
