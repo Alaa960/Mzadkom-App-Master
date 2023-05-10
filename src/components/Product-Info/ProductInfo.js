@@ -13,7 +13,7 @@ function ProductInfo() {
     const [differenceHoures, setDifferenceHoures] = useState();
     const [differenceMin, setDifferenceMin] = useState();
     const [differenceSec, setDifferenceSec] = useState();
-    const [report, setReport] = useState('')
+    const [report_content, setReport] = useState('')
     const [product, setProduct] = useState([])
     const config = {
         headers: {
@@ -24,7 +24,7 @@ function ProductInfo() {
         mount_auction: mount_auction
     }
     const reports = {
-        report: report,
+        report_content: report_content,
         user_id: product.user_id
     }
     //make an auction
@@ -48,8 +48,9 @@ function ProductInfo() {
             })
     }
     //make a report
-    const MakeReport = () => {
-        axios.post('htpp://localhost:3001/api/reports/report', reports, config)
+    const MakeReport = (user_id) => {
+        console.log(user_id)
+        axios.post(`http://localhost:3001/api/reports/report/${user_id}`, reports, config)
             .then(res => {
                 console.log(res.data)
             })
@@ -109,6 +110,7 @@ function ProductInfo() {
                             <div className='Product-Bidding'>
                                 <div className='bidding-label'>
                                     <h6 className='label'>Bidding Mount</h6>
+                                    {product.user_id}
                                 </div>
                                 <div className='Bidding-Mounts'>
                                     <input className='Input-Bidding-Mount' type='text' placeholder='Enter you bidding amount' value={mount_auction} onChange={e => setMountAuction(e.target.value)} />
@@ -141,7 +143,11 @@ function ProductInfo() {
                 <div className='row'>
                     <div className='col-lg-6 col-md-6 col-sm-12'>
                         <p>this product for {product.name}</p>
-                        <textarea value={report} onChange={e => setReport(e.target.value)}></textarea>
+                        <input
+                            placeholder='enter you report description'
+                            value={report_content}
+                            onChange={e => setReport(e.target.value)}
+                        />
                         <button className='btn btn-danger' onClick={() => MakeReport(product.user_id)}>report the user</button>
                     </div>
 
