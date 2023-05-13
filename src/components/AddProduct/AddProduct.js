@@ -69,12 +69,18 @@ export default function AddProduct() {
                                 <label className='form-label'>
                                     Product Category
                                 </label>
-                                <input
-                                    value={productCategory}
-                                    onChange={e => setProductCategory(e.target.value)}
-                                    type='text'
-                                    className='form-control'
-                                    placeholder='Product Category' />
+                                <select value={productCategory} onChange={e => setProductCategory(e.target.value)} class="form-select" aria-label="Default select example">
+                                    <option selected>Open this select menu</option>
+                                    <option value='Car'>Car</option>
+                                    <option value='Carrrrrrr'>Carrrr</option>
+                                    <option value='Carrrrrrrrrrrrrrrr'>Carrrrrrrrr</option>
+                                </select>
+
+                            </div>
+                            <div className='mb-3'>
+                                <label className='form-label'>
+                                    Product description
+                                </label>
                                 <input
                                     value={productDescription}
                                     onChange={e => setProductDescription(e.target.value)}

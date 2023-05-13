@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { getTokens } from '../../services/LocalStorage'
+import { getTokens, getUser } from '../../services/LocalStorage'
 import './Product-Info.css'
 import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
@@ -10,10 +10,14 @@ function ProductInfo() {
     const [greaterMount, setGreaterMount] = useState('')
     const [mount_auction, setMountAuction] = useState('')
     const [dateTime, setDateTime] = useState('')
+    const [differenceDays, setDifferenceDays] = useState();
     const [differenceHoures, setDifferenceHoures] = useState();
     const [differenceMin, setDifferenceMin] = useState();
     const [differenceSec, setDifferenceSec] = useState();
     const [report_content, setReport] = useState('')
+    const [message_content, setMessage] = useState('')
+    const [messages, setMessages] = useState([])
+    const from_user = getUser()
     const [product, setProduct] = useState([])
     const config = {
         headers: {
@@ -28,7 +32,7 @@ function ProductInfo() {
         user_id: product.user_id
     }
     //make an auction
-    const MakeAnAuction = (user_id) => {
+    const MakeAnAuction = () => {
         axios.post(`http://localhost:3001/api/products/auction/${product_id}`, data, config)
             .then(res => {
                 console.log(res.data)
@@ -57,19 +61,40 @@ function ProductInfo() {
                 console.log(err)
             })
     }
+    const messageData = {
+        message_content: message_content
+    }
+    //sent message
+    const SentMessage = (user_id) => {
+        axios.post(`http://localhost:3001/api/messages/sendmessage/${user_id}`, messageData, config)
+            .then(res => {
+                console.log(res.data)
+            })
+    }
+    //get messages 
+    const GetMessages = () => {
+        axios.get(`http://localhost:3001/api/messages/getmessages/${product.user_id}`, config)
+            .then(res => {
+                console.log(res.data)
+            })
+    }
+    //calculate the difference between two dates
     const counter = () => {
         const dateNow = new Date()
         const dateTwo = new Date(dateTime)
         const differenceInMs = dateTwo.getTime() - dateNow.getTime()
-        let hours = Math.floor(differenceInMs / (1000 * 60 * 60));
+        let days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+        setDifferenceDays(`${days} day`);
         setDifferenceHoures(`${hours} hours`);
         setDifferenceMin(`${minutes} minutes`);
         setDifferenceSec(`${seconds} seconds`);
     }
     setInterval(counter, 1000)
     useEffect(() => {
+        //get single product info
         const GetProductInformation = () => {
             axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
                 .then(res => {
@@ -83,6 +108,7 @@ function ProductInfo() {
 
         getGreateMountAuction();
         GetProductInformation();
+        GetMessages()
     }, [])
 
     return (
@@ -109,7 +135,6 @@ function ProductInfo() {
                             <div className='Product-Bidding'>
                                 <div className='bidding-label'>
                                     <h6 className='label'>Bidding Mount</h6>
-                                    {product.user_id}
                                 </div>
                                 <div className='Bidding-Mounts'>
                                     {/* this input for making auction */}
@@ -136,6 +161,7 @@ function ProductInfo() {
                                 <h6>{product.category}</h6>
                             </div>
                             <br />
+                            <p>{differenceDays}</p>
                             <p>{differenceHoures}</p>
                             <p>{differenceMin}</p>
                             <p>{differenceSec}</p>
@@ -144,17 +170,47 @@ function ProductInfo() {
                     </Col>
                 </Row>
             </Container>
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-lg-6 col-md-6 col-sm-12'>
-                        <p>this product for {product.name}</p>
-                        {/* this input for making report */}
-                        <input
-                            placeholder='enter you report description'
-                            value={report_content}
-                            onChange={e => setReport(e.target.value)}
-                        />
-                        <button className='btn btn-danger' onClick={() => MakeReport(product.user_id)}>report the user</button>
+            <div className='report-form'>
+                <div className='container reports'>
+                    <div className='row'>
+                        <div className='col-lg-6 col-md-6 col-sm-12'>
+                            <p>this product for {product.name}</p>
+                            {/* this input for making report */}
+                            <div className='form-floating'>
+                                <textarea
+                                    className='form-control reportInput '
+                                    id='floatingInput'
+                                    value={report_content}
+                                    onChange={e => setReport(e.target.value)}
+                                >
+                                </textarea>
+                                <label for='floatingInput'>
+                                    write your report
+                                </label>
+                            </div>
+                            <button className='btn btn-outline-danger btnReport' onClick={() => MakeReport(product.user_id)}>report the user</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='message-form'>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-12'>
+                            <p>sent message for {product.name}</p>
+                            <form>
+                                <input
+                                    type='text'
+                                    placeholder='enter the message'
+                                    value={message_content}
+                                    onChange={e => setMessage(e.target.value)}
+                                />
+                                <button className='btn btn-success' onClick={(e) => {
+                                    e.preventDefault()
+                                    SentMessage(product.user_id)
+                                }}>Send</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

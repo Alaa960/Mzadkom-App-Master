@@ -98,3 +98,23 @@
     text-decoration: none;
     color: black;
 }
+.report-form {
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+    background-color: #e0e0e0;
+    position: static;
+}
+.reports {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+.reportInput {
+    width: 350px;
+    height: 150px;
+}
+.btnReport {
+    margin-top: 15px;
+}
