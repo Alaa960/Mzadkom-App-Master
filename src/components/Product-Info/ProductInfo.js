@@ -17,8 +17,10 @@ function ProductInfo() {
     const [report_content, setReport] = useState('')
     const [message_content, setMessage] = useState('')
     const [messages, setMessages] = useState([])
+
     const from_user = getUser()
     const [product, setProduct] = useState([])
+    const user_id = product.user_id
     const config = {
         headers: {
             token: getTokens()
@@ -29,7 +31,8 @@ function ProductInfo() {
     }
     const reports = {
         report_content: report_content,
-        user_id: product.user_id
+        user_id: product.user_id,
+        product_id: product.product_id
     }
     //make an auction
     const MakeAnAuction = () => {
@@ -62,18 +65,20 @@ function ProductInfo() {
             })
     }
     const messageData = {
-        message_content: message_content
+        message_content: message_content,
+        product: product.product_id
     }
     //sent message
     const SentMessage = (user_id) => {
-        axios.post(`http://localhost:3001/api/messages/sendmessage/${user_id}`, messageData, config)
+        axios.post(`http://localhost:3001/api/messages/sendmessage/${user_id}/${product.product_id}`, messageData, config)
             .then(res => {
                 console.log(res.data)
             })
     }
     //get messages 
     const GetMessages = () => {
-        axios.get(`http://localhost:3001/api/messages/getmessages/${product.user_id}`, config)
+        console.log(user_id)
+        axios.get(`http://localhost:3001/api/messages/getmessages/${user_id}`, config)
             .then(res => {
                 console.log(res.data)
             })
@@ -109,7 +114,7 @@ function ProductInfo() {
         getGreateMountAuction();
         GetProductInformation();
         GetMessages()
-    }, [])
+    }, [product_id])
 
     return (
         <div>
@@ -191,26 +196,12 @@ function ProductInfo() {
                             <button className='btn btn-outline-danger btnReport' onClick={() => MakeReport(product.user_id)}>report the user</button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className='message-form'>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <p>sent message for {product.name}</p>
-                            <form>
-                                <input
-                                    type='text'
-                                    placeholder='enter the message'
-                                    value={message_content}
-                                    onChange={e => setMessage(e.target.value)}
-                                />
-                                <button className='btn btn-success' onClick={(e) => {
-                                    e.preventDefault()
-                                    SentMessage(product.user_id)
-                                }}>Send</button>
-                            </form>
-                        </div>
+                    <div className='col-6'>
+                        <input
+                            value={message_content}
+                            onChange={e => setMessage(e.target.value)}
+                        />
+                        <button className='btn btn-success' onClick={() => SentMessage(product.user_id)}>Send</button>
                     </div>
                 </div>
             </div>
