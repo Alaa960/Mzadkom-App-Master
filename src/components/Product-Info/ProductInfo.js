@@ -78,9 +78,10 @@ function ProductInfo() {
     //get messages 
     const GetMessages = () => {
         console.log(user_id)
-        axios.get(`http://localhost:3001/api/messages/getmessages/${user_id}`, config)
+        axios.get(`http://localhost:3001/api/messages/getmessages/${user_id}/${product.product_id}`, config)
             .then(res => {
                 console.log(res.data)
+                setMessages(res.data)
             })
     }
     //calculate the difference between two dates
@@ -114,7 +115,7 @@ function ProductInfo() {
         getGreateMountAuction();
         GetProductInformation();
         GetMessages()
-    }, [product_id])
+    }, [product_id, GetMessages])
 
     return (
         <div>
@@ -196,14 +197,26 @@ function ProductInfo() {
                             <button className='btn btn-outline-danger btnReport' onClick={() => MakeReport(product.user_id)}>report the user</button>
                         </div>
                     </div>
-                    <div className='col-6'>
-                        <input
-                            value={message_content}
-                            onChange={e => setMessage(e.target.value)}
-                        />
-                        <button className='btn btn-success' onClick={() => SentMessage(product.user_id)}>Send</button>
+                </div>
+            </div>
+            <div className='container messages'>
+                <div className='row'>
+                    <div className='col-12'>
+                        {messages.map((message) => (
+                            <div key={message.message_id}>
+                                <h6>{message.message_content}</h6>
+                                <p>{message.name}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
+            </div>
+            <div className='col-6'>
+                <input
+                    value={message_content}
+                    onChange={e => setMessage(e.target.value)}
+                />
+                <button className='btn btn-success' onClick={() => SentMessage(product.user_id)}>Send</button>
             </div>
         </div >
     )

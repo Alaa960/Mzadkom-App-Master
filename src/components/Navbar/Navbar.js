@@ -38,9 +38,6 @@ function NavBar() {
                             <NavDropdown.Item>
                                 <Link to='/editprofile' className='home-link'>Edit Profile</Link>
                             </NavDropdown.Item>
-                            <NavDropdown.Item>
-                                <Link to='/messages' className='home-link'>Messages</Link>
-                            </NavDropdown.Item>
                         </NavDropdown>
                     </Navbar.Collapse>
                     <Navbar.Collapse className='justify-content-end'>
