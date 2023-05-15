@@ -17,10 +17,7 @@ function ProductInfo() {
     const [report_content, setReport] = useState('')
     const [message_content, setMessage] = useState('')
     const [messages, setMessages] = useState([])
-
-    const from_user = getUser()
     const [product, setProduct] = useState([])
-    const user_id = product.user_id
     const config = {
         headers: {
             token: getTokens()
@@ -38,7 +35,6 @@ function ProductInfo() {
     const MakeAnAuction = () => {
         axios.post(`http://localhost:3001/api/products/auction/${product_id}`, data, config)
             .then(res => {
-                console.log(res.data)
                 setMountAuction(res.data)
             }).catch(err => {
                 console.log(err)
@@ -65,24 +61,7 @@ function ProductInfo() {
             })
     }
     const messageData = {
-        message_content: message_content,
-        product: product.product_id
-    }
-    //sent message
-    const SentMessage = (user_id) => {
-        axios.post(`http://localhost:3001/api/messages/sendmessage/${user_id}/${product.product_id}`, messageData, config)
-            .then(res => {
-                console.log(res.data)
-            })
-    }
-    //get messages 
-    const GetMessages = () => {
-        console.log(user_id)
-        axios.get(`http://localhost:3001/api/messages/getmessages/${user_id}/${product.product_id}`, config)
-            .then(res => {
-                console.log(res.data)
-                setMessages(res.data)
-            })
+        message_content: message_content
     }
     //calculate the difference between two dates
     const counter = () => {
@@ -114,8 +93,7 @@ function ProductInfo() {
 
         getGreateMountAuction();
         GetProductInformation();
-        GetMessages()
-    }, [product_id, GetMessages])
+    }, [])
 
     return (
         <div>
@@ -198,25 +176,6 @@ function ProductInfo() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='container messages'>
-                <div className='row'>
-                    <div className='col-12'>
-                        {messages.map((message) => (
-                            <div key={message.message_id}>
-                                <h6>{message.message_content}</h6>
-                                <p>{message.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-            <div className='col-6'>
-                <input
-                    value={message_content}
-                    onChange={e => setMessage(e.target.value)}
-                />
-                <button className='btn btn-success' onClick={() => SentMessage(product.user_id)}>Send</button>
             </div>
         </div >
     )
