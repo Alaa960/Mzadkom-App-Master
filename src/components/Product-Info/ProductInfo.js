@@ -71,6 +71,7 @@ function ProductInfo() {
         setDifferenceHoures(`${hours} hours`);
         setDifferenceMin(`${minutes} minutes`);
         setDifferenceSec(`${seconds} seconds`);
+
     }
     setInterval(counter, 1000)
     useEffect(() => {
@@ -79,7 +80,7 @@ function ProductInfo() {
             axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
                 .then(res => {
                     setProduct(res.data.product)
-                    setDateTime(res.data.product.time)
+                    setDateTime(res.data.product[0].time)
                 })
                 .catch(err => {
                     console.log(err)
@@ -96,16 +97,30 @@ function ProductInfo() {
 
             <div className='container Product-Info'>
                 <div className='row'>
-                    <Col>
-                        <Container className='Product-Title'>
-                            <h6 className='title-prodcut'>{product.title}</h6>
-                        </Container>
-                        <Container>
-                            <div className='Product-Image'>
-                                <Image className='mt-4 product-img' src={`http://localhost:3001/${product.new_name}`} width={250} height={250} />
-                            </div>
-                        </Container>
-                    </Col>
+                    {product.map((product) => (
+                        <Col>
+                            <Container className='Product-Title'>
+                                <h6 className='title-prodcut'>{product.title}</h6>
+                            </Container>
+                            <Container>
+                                <div className='Product-Image'>
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src={`http://localhost:3001/${product.prod[0].new_name}`} class="d-block w-100" alt="..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </Container>
+                        </Col>
+                    ))}
                     <Col>
                         <Container className='Product-Title'>
                             <h5>Bidding</h5>

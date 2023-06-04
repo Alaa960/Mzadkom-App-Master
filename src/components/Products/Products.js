@@ -48,7 +48,7 @@ export default function Products() {
             </div>
                 : <div className='container'>
                     <input
-                        placeholder='search product by category .....'
+                        placeholder='search product by title .....'
                         value={search}
                         onChange={e => setSearch(e.target.value)}
                     />
@@ -56,11 +56,11 @@ export default function Products() {
                         {products.filter((product) => {
                             return search.toLowerCase() === ''
                                 ? product
-                                : product.category.toLowerCase().includes(search)
+                                : product.title.toLowerCase().includes(search)
                         }).map(product => (
                             <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
-                                    <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} width={120} height={120} />
+                                    <img alt={product.title} src={`http://localhost:3001/${product.prod[0].new_name}`} width={120} height={120} />
                                     <div className='show-info'>
                                         <Link to={`/product/${product.product_id}`} className='Info'>
                                             <BsFillEyeFill size={25} />
