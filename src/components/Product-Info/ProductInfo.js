@@ -15,8 +15,6 @@ function ProductInfo() {
     const [differenceMin, setDifferenceMin] = useState();
     const [differenceSec, setDifferenceSec] = useState();
     const [report_content, setReport] = useState('')
-    const [message_content, setMessage] = useState('')
-    const [messages, setMessages] = useState([])
     const [product, setProduct] = useState([])
     const config = {
         headers: {
@@ -60,9 +58,6 @@ function ProductInfo() {
                 console.log(err)
             })
     }
-    const messageData = {
-        message_content: message_content
-    }
     //calculate the difference between two dates
     const counter = () => {
         const dateNow = new Date()
@@ -99,8 +94,8 @@ function ProductInfo() {
         <div>
             <NavBar />
 
-            <Container className='Product-Info'>
-                <Row>
+            <div className='container Product-Info'>
+                <div className='row'>
                     <Col>
                         <Container className='Product-Title'>
                             <h6 className='title-prodcut'>{product.title}</h6>
@@ -132,6 +127,9 @@ function ProductInfo() {
                                 <div className='Product-Actions'>
                                     <button onClick={MakeAnAuction} className='btn btn-outline-danger'>Bid Now</button>
                                 </div>
+                                <div className='time'>
+                                    <p>{differenceDays}:{differenceHoures}:{differenceMin}:{differenceSec}</p>
+                                </div>
                             </div>
 
                         </Container>
@@ -140,25 +138,39 @@ function ProductInfo() {
                         <Container className='Product-Title'>
                             <h5>Product Information</h5>
                         </Container>
-                        <Container className='Product-Information'>
-                            <div className='category'>
-                                <h6>{product.category}</h6>
+
+                        <div className='container Product-Information'>
+                            <div className='row'>
+                                <div className='col-4'>
+                                    <table className='table'>
+                                        <thead itemScope='col'>
+                                            <tr>
+                                                <th>Product title</th>
+                                                <th>Product category</th>
+                                                <th>Product initial price</th>
+                                                <th>Product description</th>
+                                                <th>Mount auction</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
-                            <br />
-                            <p>{differenceDays}</p>
-                            <p>{differenceHoures}</p>
-                            <p>{differenceMin}</p>
-                            <p>{differenceSec}</p>
-                            <p>{greaterMount}</p>
-                        </Container>
+                        </div>
                     </Col>
-                </Row>
-            </Container>
+                </div>
+            </div>
+            <div className='container product-for'>
+                <div className='row'>
+                    <div className='col-12'>
+                        <h6>this product for {product.name}</h6>
+                    </div>
+                </div>
+            </div>
             <div className='report-form'>
                 <div className='container reports'>
                     <div className='row'>
                         <div className='col-lg-6 col-md-6 col-sm-12'>
-                            <p>this product for {product.name}</p>
+
                             {/* this input for making report */}
                             <div className='form-floating'>
                                 <textarea

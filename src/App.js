@@ -11,9 +11,6 @@ import Products from './components/Products/Products';
 import AddProduct from './components/AddProduct/AddProduct';
 import UserProducts from './components/UserProducts/UserProducts';
 import EditProfile from './components/EditProfile/EditProfile';
-import Side from './components/Side/Side';
-import Messages from './components/Messages/Messages';
-
 function App() {
   return (
     <div>
@@ -29,8 +26,6 @@ function App() {
         <Route path='/addProduct' element={<AddProduct />} />
         <Route path='/yourproducts' element={<UserProducts />} />
         <Route path='/editprofile' element={<EditProfile />} />
-        <Route path='/messages' element={<Side />} />
-        <Route path='/messages/:user_id' element={<Messages />} />
       </Routes>
     </div>
   );

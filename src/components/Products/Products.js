@@ -8,6 +8,8 @@ import { getTokens } from '../../services/LocalStorage';
 export default function Products() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
+    const [search, setSearch] = useState('')
+    console.log(search)
     const config = {
         headers: {
             token: getTokens()
@@ -42,10 +44,20 @@ export default function Products() {
                     wrapperClassName=""
                     visible={true}
                 />
+
             </div>
                 : <div className='container'>
+                    <input
+                        placeholder='search product by category .....'
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
                     <div className='row'>
-                        {products.map(product => (
+                        {products.filter((product) => {
+                            return search.toLowerCase() === ''
+                                ? product
+                                : product.category.toLowerCase().includes(search)
+                        }).map(product => (
                             <div className='col-4' key={product.product_id}>
                                 <div className='product-card'>
                                     <img alt={product.title} src={`http://localhost:3001/${product.new_name}`} width={120} height={120} />
