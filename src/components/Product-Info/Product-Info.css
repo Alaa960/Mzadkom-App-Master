@@ -123,3 +123,7 @@
 .next {
     margin-left: 250px;
 }
+.swiper_container {
+    width: 100%;
+    height: 100%;
+}

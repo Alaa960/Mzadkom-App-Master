@@ -3,43 +3,50 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { getTokens, getUser } from '../../services/LocalStorage'
-import { Carousel } from 'react-responsive-carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper';
+
 import './Product-Info.css'
 import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
+    //get the product_id from the params
     const { product_id } = useParams()
+    //the greater mount of the auction
     const [greaterMount, setGreaterMount] = useState('')
+    //the value that user should enter to make the auction
     const [mount_auction, setMountAuction] = useState('')
+    //the date
     const [dateTime, setDateTime] = useState('')
+    //diff time by days
     const [differenceDays, setDifferenceDays] = useState();
-    const [differenceHoures, setDifferenceHoures] = useState();
+    //diff time by hours
+    const [differenceHours, setDifferenceHoures] = useState();
+    //diff time by mins
     const [differenceMin, setDifferenceMin] = useState();
+    //diff time by sec
     const [differenceSec, setDifferenceSec] = useState();
+    //te value that should user enter to make a report
     const [report_content, setReport] = useState('')
+    // the product information
     const [product, setProduct] = useState([])
+    //the product images
     const [images, setIMages] = useState([])
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    const nextImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    };
-
-    const prevImage = () => {
-        setCurrentImageIndex((prevIndex) => {
-            const newIndex = prevIndex - 1;
-            return newIndex < 0 ? images.length - 1 : newIndex;
-        });
-    };
-
-    const currentImage = images[currentImageIndex];
+    //get the current image
     const config = {
         headers: {
             token: getTokens()
         }
     }
+    //the data of mount that user should insert
     const data = {
         mount_auction: mount_auction
     }
+    //the data of reports {reports_content,user_id from products,product_id from the params}
     const reports = {
         report_content: report_content,
         user_id: product.user_id,
@@ -54,8 +61,8 @@ function ProductInfo() {
                 console.log(err)
             })
     }
-    //get greate mount auction
-    const getGreateMountAuction = () => {
+    //get greater mount auction
+    const getGreaterMountAuction = () => {
         axios.get(`http://localhost:3001/api/products/maxauctionmount/${product_id}`)
             .then(res => {
                 setGreaterMount(res.data.result.mount_auction)
@@ -77,8 +84,8 @@ function ProductInfo() {
     //calculate the difference between two dates
     const counter = () => {
         const dateNow = new Date()
-        const dateTwo = new Date(dateTime)
-        const differenceInMs = dateTwo.getTime() - dateNow.getTime()
+        const dateTwo = new Date(dateTime)//dateTime it is from product information
+        const differenceInMs = dateTwo.getTime() - dateNow.getTime() //sub date of the product from the nowDate
         let days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
         let hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
@@ -90,21 +97,20 @@ function ProductInfo() {
 
     }
     setInterval(counter, 1000)
+    //get single product info
+    const GetProductInformation = () => {
+        axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
+            .then(res => {
+                setProduct(res.data.product)
+                setDateTime(res.data.product.time)
+                setIMages(res.data.product.images)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
     useEffect(() => {
-        //get single product info
-        const GetProductInformation = () => {
-            axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
-                .then(res => {
-                    setProduct(res.data.product)
-                    setDateTime(res.data.product.time)
-                    setIMages(res.data.product.images)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        }
-
-        getGreateMountAuction();
+        getGreaterMountAuction();
         GetProductInformation();
     }, [])
 
@@ -120,19 +126,33 @@ function ProductInfo() {
                         </Container>
                         <Container>
                             <div className='Product-Image'>
-                                <div className="image-carousel">
+                                <Swiper
+                                    effect={'coverflow'}
+                                    grabCursor={true}
+                                    centeredSlides={true}
+                                    slidesPerView={'auto'}
+                                    coverflowEffect={{
+                                        rotate: 0,
+                                        stretch: 0,
+                                        depth: 100,
+                                        modifier: 2.5,
+                                    }}
+                                    pagination={{ el: '.swiper-pagination', clickable: true }}
+                                    navigation={{
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                        clickable: true,
+                                    }}
+                                    modules={[EffectCoverflow, Pagination, Navigation]}
+                                    className="swiper_container"
+                                >
+                                    {images.map((image) => (
+                                        <SwiperSlide>
+                                            <img src={`http://localhost:3001/${image.new_name}`} alt="slide_image" className='Product-Image d-block w-100' />
+                                        </SwiperSlide>
+                                    ))}
 
-                                    <div className="carousel-image">
-                                        <img src={`http://localhost:3001/${currentImage.new_name}`} alt={images.title} className='d-block w-100' />
-                                    </div>
-                                    <div className='d-flex flex-end'>
-                                        <button onClick={prevImage}>Previous</button>
-                                        <div className='next'>
-                                            <button onClick={nextImage}>Next</button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                </Swiper>
                             </div>
                         </Container>
                     </Col>
@@ -157,9 +177,23 @@ function ProductInfo() {
                                 <div className='Product-Actions'>
                                     <button onClick={MakeAnAuction} className='btn btn-outline-danger'>Bid Now</button>
                                 </div>
-                                <div className='time'>
-                                    <p>{differenceDays}:{differenceHoures}:{differenceMin}:{differenceSec}</p>
+                                <div className='time' style={{ display: 'flex' }}>
+                                    <div className='days'>
+                                        <p>{differenceDays}:</p>
+                                    </div>
+                                    <div className='hours'>
+                                        <p>{differenceHours}:</p>
+                                    </div>
+                                    <div className='mins'>
+                                        <p>{differenceMin}:</p>
+                                    </div>
+                                    <div className='sec'>
+                                        <p style={{ color: 'red' }}>{differenceSec}</p>
+                                    </div>
+
+
                                 </div>
+
                             </div>
 
                         </Container>
