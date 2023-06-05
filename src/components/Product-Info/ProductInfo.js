@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 import { getTokens, getUser } from '../../services/LocalStorage'
+import { Carousel } from 'react-responsive-carousel';
 import './Product-Info.css'
 import NavBar from '../Navbar/Navbar'
 function ProductInfo() {
@@ -16,6 +17,21 @@ function ProductInfo() {
     const [differenceSec, setDifferenceSec] = useState();
     const [report_content, setReport] = useState('')
     const [product, setProduct] = useState([])
+    const [images, setIMages] = useState([])
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const nextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    };
+
+    const prevImage = () => {
+        setCurrentImageIndex((prevIndex) => {
+            const newIndex = prevIndex - 1;
+            return newIndex < 0 ? images.length - 1 : newIndex;
+        });
+    };
+
+    const currentImage = images[currentImageIndex];
     const config = {
         headers: {
             token: getTokens()
@@ -80,7 +96,8 @@ function ProductInfo() {
             axios.get(`http://localhost:3001/api/products/product/${product_id}`, config)
                 .then(res => {
                     setProduct(res.data.product)
-                    setDateTime(res.data.product[0].time)
+                    setDateTime(res.data.product.time)
+                    setIMages(res.data.product.images)
                 })
                 .catch(err => {
                     console.log(err)
@@ -97,30 +114,28 @@ function ProductInfo() {
 
             <div className='container Product-Info'>
                 <div className='row'>
-                    {product.map((product) => (
-                        <Col>
-                            <Container className='Product-Title'>
-                                <h6 className='title-prodcut'>{product.title}</h6>
-                            </Container>
-                            <Container>
-                                <div className='Product-Image'>
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img src={`http://localhost:3001/${product.prod[0].new_name}`} class="d-block w-100" alt="..." />
+                    <Col>
+                        <Container className='Product-Title'>
+                            <h6 className='title-prodcut'>{product.title}</h6>
+                        </Container>
+                        <Container>
+                            <div className='Product-Image'>
+                                <div className="image-carousel">
+
+                                    <div className="carousel-image">
+                                        <img src={`http://localhost:3001/${currentImage.new_name}`} alt={images.title} className='d-block w-100' />
+                                    </div>
+                                    <div className='d-flex flex-end'>
+                                        <button onClick={prevImage}>Previous</button>
+                                        <div className='next'>
+                                            <button onClick={nextImage}>Next</button>
                                         </div>
                                     </div>
+
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </Container>
-                        </Col>
-                    ))}
+                            </div>
+                        </Container>
+                    </Col>
                     <Col>
                         <Container className='Product-Title'>
                             <h5>Bidding</h5>
