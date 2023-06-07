@@ -2,11 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row, Image } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import { getTokens, getUser } from '../../services/LocalStorage'
+import { getTokens } from '../../services/LocalStorage'
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
+
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper';
@@ -90,10 +91,10 @@ function ProductInfo() {
         let hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-        setDifferenceDays(`${days} day`);
-        setDifferenceHoures(`${hours} hours`);
-        setDifferenceMin(`${minutes} minutes`);
-        setDifferenceSec(`${seconds} seconds`);
+        setDifferenceDays(`${days}`);
+        setDifferenceHoures(`${hours}`);
+        setDifferenceMin(`${minutes}`);
+        setDifferenceSec(`${seconds}`);
 
     }
     setInterval(counter, 1000)
@@ -117,7 +118,6 @@ function ProductInfo() {
     return (
         <div>
             <NavBar />
-
             <div className='container Product-Info'>
                 <div className='row'>
                     <Col>
@@ -131,6 +131,7 @@ function ProductInfo() {
                                     grabCursor={true}
                                     centeredSlides={true}
                                     slidesPerView={'auto'}
+                                    longSwipes={true}
                                     coverflowEffect={{
                                         rotate: 0,
                                         stretch: 0,
@@ -179,21 +180,18 @@ function ProductInfo() {
                                 </div>
                                 <div className='time' style={{ display: 'flex' }}>
                                     <div className='days'>
-                                        <p>{differenceDays}:</p>
+                                        <p className='secs'>{differenceDays} Day:</p>
                                     </div>
                                     <div className='hours'>
-                                        <p>{differenceHours}:</p>
+                                        <p className='secs'>{differenceHours} Hr:</p>
                                     </div>
                                     <div className='mins'>
-                                        <p>{differenceMin}:</p>
+                                        <p className='secs'>{differenceMin} Min:</p>
                                     </div>
                                     <div className='sec'>
-                                        <p style={{ color: 'red' }}>{differenceSec}</p>
+                                        <p className='secs'>{differenceSec} Sec</p>
                                     </div>
-
-
                                 </div>
-
                             </div>
 
                         </Container>
@@ -202,39 +200,24 @@ function ProductInfo() {
                         <Container className='Product-Title'>
                             <h5>Product Information</h5>
                         </Container>
-
-                        <div className='container Product-Information'>
-                            <div className='row'>
-                                <div className='col-4'>
-                                    <table className='table'>
-                                        <thead itemScope='col'>
-                                            <tr>
-                                                <th>Product title</th>
-                                                <th>Product category</th>
-                                                <th>Product initial price</th>
-                                                <th>Product description</th>
-                                                <th>Mount auction</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
+                        <div className='Product-Information'>
+                            <div>
+                                <h4>This is {product.title}</h4>
+                            </div>
+                            <div>
+                                <h6 className='product-description mt-5'>{product.description}</h6>
+                            </div>
+                            <div>
+                                <h6 className='mt-3'>the initial price : {product.initial_price} $</h6>
                             </div>
                         </div>
                     </Col>
-                </div>
-            </div>
-            <div className='container product-for'>
-                <div className='row'>
-                    <div className='col-12'>
-                        <h6>this product for {product.name}</h6>
-                    </div>
                 </div>
             </div>
             <div className='report-form'>
                 <div className='container reports'>
                     <div className='row'>
                         <div className='col-lg-6 col-md-6 col-sm-12'>
-
                             {/* this input for making report */}
                             <div className='form-floating'>
                                 <textarea

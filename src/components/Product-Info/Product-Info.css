@@ -45,7 +45,11 @@
     margin-top: 200px;
     width: 80%;
     border-radius: 10px;
-    height: 30px;
+    height: 50px;
+}
+.Input-Bidding-Mount::placeholder {
+    padding: 15px;
+    color: black;
 }
 .bidding-label {
     width: 100%;
@@ -64,8 +68,6 @@
     height: 350px;
     margin-top: 15px;
     background-color: #e0e0e0;
-    display: flex;
-    align-items: center ;
     font-size: 20px;
     font-weight: bold;
 }
@@ -98,7 +100,10 @@
     text-decoration: none;
     color: black;
 }
-.product-for {
+.product-description {
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 400;
 }
 .report-form {
     width: 100%;
@@ -126,4 +131,48 @@
 .swiper_container {
     width: 100%;
     height: 100%;
+}
+.last-mount {
+    margin: 20px;
+    background-color: white;
+}
+.sec {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+}
+.mins {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgb(72, 72, 72);
+    display: flex;
+    align-items: center; 
+}
+.hours {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgb(114, 114, 114);
+    display: flex;
+    align-items: center;
+}
+.days {
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgb(158, 158, 158);
+    display: flex;
+    align-items: center;
+}
+.secs {
+    margin-left: 5px;
+    color: white;
 }
