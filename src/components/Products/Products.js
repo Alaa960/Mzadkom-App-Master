@@ -47,11 +47,16 @@ export default function Products() {
 
             </div>
                 : <div className='container'>
-                    <input
-                        placeholder='search product by title .....'
-                        value={search}
-                        onChange={e => setSearch(e.target.value)}
-                    />
+                    <row>
+                        <div className='col-4'>
+                            <input
+                                className='form-control'
+                                placeholder='search product by title .....'
+                                value={search}
+                                onChange={e => setSearch(e.target.value)}
+                            />
+                        </div>
+                    </row>
                     <div className='row'>
                         {products.filter((product) => {
                             return search.toLowerCase() === ''

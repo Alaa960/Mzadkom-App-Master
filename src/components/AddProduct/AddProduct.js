@@ -78,7 +78,7 @@ export default function AddProduct() {
                                         <select value={productCategory} onChange={e => setProductCategory(e.target.value)} class="form-select" aria-label="Default select example">
                                             <option selected>Open this select menu...</option>
                                             <option value='Car'>Car</option>
-                                            <option value='Furniture'>Furniture</option>
+                                            <option value='Building'>Building</option>
                                             <option value='Antiques'>Antiques</option>
                                         </select>
                                     </div>

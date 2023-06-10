@@ -210,6 +210,9 @@ function ProductInfo() {
                             <div>
                                 <h6 className='mt-3'>the initial price : {product.initial_price} $</h6>
                             </div>
+                            <div>
+                                <h6>the last auction :{greaterMount}</h6>
+                            </div>
                         </div>
                     </Col>
                 </div>
