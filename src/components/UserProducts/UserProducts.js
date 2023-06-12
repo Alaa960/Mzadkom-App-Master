@@ -34,21 +34,21 @@ export default function UserProducts() {
     useEffect(() => (
         GetUserProducts(),
         DeleteProduct()
-    ), [DeleteProduct])
+    ), [])
     return (
         <div>
             <NavBar />
             {userProducts.length === 0 ? <EmptyProducts /> : <div className='container-fluid'>
                 <div className='row'>
-                    {userProducts.map((products => (
-                        <div key={products.product_id} className='col-4 card '>
-                            <img className='card-img-top product-img' src={`http://localhost:3001/${products.images[1].new_name}`} alt={products.title} />
+                    {userProducts.map((product => (
+                        <div key={product.product_id} className='col-4 card '>
+                            <img className='card-img-top product-img' src={`http://localhost:3001/${product.images[0].new_name}`} alt={product.title} />
                             <div className='card-body'>
-                                <h5 className='card-title'>{products.title}</h5>
-                                <h6 className='card-text'>{products.category}</h6>
-                                <h6 className='card-text'>{products.time}</h6>
-                                <h6 className='card-text'>{products.initial_price}</h6>
-                                <button className='btn btn-danger' onClick={() => DeleteProduct(products.product_id)}>Delete</button>
+                                <h5 className='card-title'>{product.title}</h5>
+                                <h6 className='card-text'>{product.category}</h6>
+                                <h6 className='card-text'>{product.time}</h6>
+                                <h6 className='card-text'>{product.initial_price}</h6>
+                                <button className='btn btn-danger' onClick={() => DeleteProduct(product.product_id)}>Delete</button>
 
                             </div>
                         </div>

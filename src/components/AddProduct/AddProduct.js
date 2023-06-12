@@ -12,6 +12,7 @@ export default function AddProduct() {
     const [productCategory, setProductCategory] = useState('')
     const [productDescription, setProductDescription] = useState('')
     const [productPhoto, setProductPhoto] = useState([])
+    const [error, setError] = useState([])
     const config = {
         headers: {
             token: getTokens(),
@@ -31,7 +32,9 @@ export default function AddProduct() {
         axios.post('http://localhost:3001/api/products/add', body, config)
             .then(res => {
                 console.log(res.data)
-
+            })
+            .catch(err => {
+                setError(err.response.data.error)
             })
     }
     return (
@@ -43,6 +46,9 @@ export default function AddProduct() {
                         <form className='form-add-product ' onSubmit={e => {
                             e.preventDefault()
                         }}>
+                            {error.map((err) => (
+                                <p key={err.param} style={{ color: 'red' }}>{err.msg}</p>
+                            ))}
                             <div className='row'>
                                 <div className='col-4'>
                                     <div className='mb-3'>
@@ -75,7 +81,7 @@ export default function AddProduct() {
                                         <label className='form-label'>
                                             Product Category
                                         </label>
-                                        <select value={productCategory} onChange={e => setProductCategory(e.target.value)} class="form-select" aria-label="Default select example">
+                                        <select value={productCategory} onChange={e => setProductCategory(e.target.value)} className="form-select" aria-label="Default select example">
                                             <option selected>Open this select menu...</option>
                                             <option value='Car'>Car</option>
                                             <option value='Building'>Building</option>

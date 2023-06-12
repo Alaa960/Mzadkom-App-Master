@@ -4,18 +4,20 @@ import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SetToken, SetUser } from '../../services/LocalStorage'
 import { Link, useNavigate } from 'react-router-dom'
+
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
     const navigate = useNavigate()
+    const [erroremail, setErrorEmail] = useState('')
+    const [errorpassword, setErrorPassword] = useState('')
+    const [usernotefound, setUserNotFound] = useState('')
     const data = {
         email: email,
         password: password,
     }
     //press button login
     const RegisterUser = () => {
-
         axios.post('http://localhost:3001/api/auth/login', data)
             .then(res => {
                 SetToken(res.data)
@@ -23,10 +25,12 @@ function Login() {
                 if (res.status === 200) {
                     { res.data.user.isAdmin === 0 ? navigate('../home') : navigate('../register') }
                 }
-            }).catch(err => {
-                console.log(err.response.data)
-            })
 
+            }).catch(err => {
+                setErrorEmail(err.response.data.error[0].msg)
+                setErrorPassword(err.response.data.error[1].msg)
+                setUserNotFound(err.response.data.error)
+            })
     }
     return (
 
@@ -36,6 +40,9 @@ function Login() {
             </div>
             <Container className='form-register'>
                 <div className="FormRegister">
+                    <div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <h5 style={{ color: 'red', fontWeight: 'bold' }}>{usernotefound}</h5>
+                    </div>
                     <Form>
                         <div className="formGroup">
                             {/* this input form for the employee email */}
@@ -47,7 +54,7 @@ function Login() {
                                     type="email"
                                     placeholder="Enter your email"
                                 />
-                                <p style={{ color: 'red' }}>{error}</p>
+                                <p style={{ color: 'red' }}>{erroremail}</p>
                             </Form.Group>
                         </div>
 
@@ -60,7 +67,7 @@ function Login() {
                                 type="password"
                                 placeholder="Enter your password"
                             />
-                            <p style={{ color: 'red' }}>{error}</p>
+                            <p style={{ color: 'red' }}>{errorpassword}</p>
                         </Form.Group>
 
                         {/* Button for add the employee */}
