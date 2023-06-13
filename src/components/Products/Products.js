@@ -74,7 +74,7 @@ export default function Products() {
                             <div>
                                 <button
                                     className='Antiques-cat'
-                                    onClick={() => filterProduct('Antiques')}
+                                    onClick={() => filterProduct('Antique')}
                                 >Antiques</button>
                             </div>
                             <div>
@@ -93,29 +93,33 @@ export default function Products() {
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
                             />
-                            {filter.filter((product) => {
-                                return search.toLowerCase() === ''
-                                    ? product
-                                    : product.title.toLowerCase().includes(search)
-                            }).map(product => (
-                                <div className='col-4' key={product.product_id}>
-                                    <div className='product-card'>
-                                        <img alt={product.title} src={`http://localhost:3001/${product.prod[0].new_name}`} width={120} height={120} />
-                                        <div className='show-info'>
-                                            <Link to={`/product/${product.product_id}`} className='Info'>
-                                                <BsFillEyeFill size={25} />
-                                            </Link>
-                                        </div>
+                            <div>
+                                <div className='row'>
+                                    {filter.filter((product) => {
+                                        return search.toLowerCase() === ''
+                                            ? product
+                                            : product.title.toLowerCase().includes(search)
+                                    }).map(product => (
+                                        <div className='col-4' key={product.product_id}>
+                                            <div className='product-card'>
+                                                <img alt={product.title} src={`http://localhost:3001/${product.prod[0].new_name}`} width={120} height={120} />
+                                                <div className='show-info'>
+                                                    <Link to={`/product/${product.product_id}`} className='Info'>
+                                                        <BsFillEyeFill size={25} />
+                                                    </Link>
+                                                </div>
 
-                                    </div>
-                                    <Link className='title' to={`/product/${product.product_id}`}>
-                                        <h6 className='product-title'>{product.title}</h6>
-                                    </Link>
-                                    <div>
-                                        $ {product.initial_price}
-                                    </div>
+                                            </div>
+                                            <Link className='title' to={`/product/${product.product_id}`}>
+                                                <h6 className='product-title'>{product.title}</h6>
+                                            </Link>
+                                            <div>
+                                                $ {product.initial_price}
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
 

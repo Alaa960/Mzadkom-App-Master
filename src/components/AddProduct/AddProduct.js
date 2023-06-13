@@ -13,7 +13,6 @@ export default function AddProduct() {
     const [productCategory, setProductCategory] = useState('')
     const [productDescription, setProductDescription] = useState('')
     const [productPhoto, setProductPhoto] = useState([])
-    const [error, setError] = useState([])
     const config = {
         headers: {
             token: getTokens(),
@@ -35,7 +34,7 @@ export default function AddProduct() {
                 console.log(res.data)
             })
             .catch(err => {
-                setError(err.response.data.error)
+                console.error(err)
             })
     }
     return (
@@ -46,9 +45,7 @@ export default function AddProduct() {
                     <div className='col-6'>
                         <img src={AddProductImage} alt='add-image' width={500} height={600} />
                     </div>
-                    {error.map((err) => (
-                        <p key={err.param} style={{ color: 'red' }}>{err.msg}</p>
-                    ))}
+
                     <div className='col-6 inputs'>
                         <div className='row'>
                             <div className='col-6'>
@@ -63,8 +60,8 @@ export default function AddProduct() {
                             </div>
                             <div className='col-6'>
                                 <label className='form-label'>Product Category:</label>
-                                <select className='form-control'>
-                                    <option>Select product category</option>
+                                <select className='form-control' onChange={e => setProductCategory(e.target.value)}>
+                                    <option >Select product category</option>
                                     <option value='Car'>Car</option>
                                     <option value='Antique'>Antique</option>
                                     <option value='Building'>Building</option>
@@ -85,7 +82,6 @@ export default function AddProduct() {
                             <div className='col-6'>
                                 <label>Product Images:</label>
                                 <input
-                                    value={productPhoto}
                                     onChange={e => setProductPhoto(e.target.files)}
                                     type='file'
                                     multiple

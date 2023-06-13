@@ -9,8 +9,6 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-    const [erroremail, setErrorEmail] = useState('')
-    const [errorpassword, setErrorPassword] = useState('')
     const [usernotefound, setUserNotFound] = useState('')
     const data = {
         email: email,
@@ -27,8 +25,6 @@ function Login() {
                 }
 
             }).catch(err => {
-                setErrorEmail(err.response.data.error[0].msg)
-                setErrorPassword(err.response.data.error[1].msg)
                 setUserNotFound(err.response.data.error)
             })
     }
@@ -54,7 +50,6 @@ function Login() {
                                     type="email"
                                     placeholder="Enter your email"
                                 />
-                                <p style={{ color: 'red' }}>{erroremail}</p>
                             </Form.Group>
                         </div>
 
@@ -67,7 +62,6 @@ function Login() {
                                 type="password"
                                 placeholder="Enter your password"
                             />
-                            <p style={{ color: 'red' }}>{errorpassword}</p>
                         </Form.Group>
 
                         {/* Button for add the employee */}

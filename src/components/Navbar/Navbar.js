@@ -7,7 +7,7 @@ import {
     NavDropdown
 } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import logo from '../../images/mzadkn.png'
+import logo from '../../images/logo.png'
 import './NavBar.css'
 import { removeTokens, removeUser } from '../../services/LocalStorage'
 function NavBar() {
@@ -19,7 +19,7 @@ function NavBar() {
         <Container fluid='true'>
             <Navbar bg="light" expand="lg" className='navbar-home navbar justify-content-start'>
                 <Container>
-                    <Link to='/home'><Image alt='ourwebsite' src={logo} width={330} height={80} /></Link>
+                    <Link to='/home'><Image alt='ourwebsite' src={logo} width={200} height={200} /></Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                         <Nav className='navs'>
