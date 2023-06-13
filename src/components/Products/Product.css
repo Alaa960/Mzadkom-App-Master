@@ -56,3 +56,46 @@
         left: 50%;
     }
 }
+.cat-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+.Building-cat {
+    margin-top: 15px;
+    width: 180px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Antiques-cat {
+    margin-top: 15px;
+    width: 180px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Car-cat {
+    margin-top: 15px;
+    width: 180px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.All-products {
+    margin-top: 15px;
+    width: 180px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.lists {
+    border-right: 1px solid black;
+}

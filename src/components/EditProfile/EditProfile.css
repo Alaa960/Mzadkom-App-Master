@@ -6,18 +6,19 @@
     margin-top: 50px;
     align-items: center;
     justify-content: center;
+    border-radius: 15px;
+    box-shadow: 1px 0px 1px 1px black;
 }
-.inputs {
-    padding: 15px;
+.edit-btn {
+    width: 120px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: #f44336;
+    color: white;
 }
-.namelInput {
-    width: 250px;
-}
-.emailInput {
-    width: 250px;
-    margin-left: 50px;
-}
-.passwordInput {
-    width: 250px;
-    margin-left: 100px;
+.edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
