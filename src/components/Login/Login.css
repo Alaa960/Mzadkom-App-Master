@@ -19,6 +19,7 @@
     width: 700px;
     height: 500px;
     background-color: #e0e0e0;
+    box-shadow: 2px 4px 5px 5px black;
 }
 .userName {
     color: black;
@@ -39,12 +40,20 @@
     width : 500px;
     margin-left : 15px;
 }
+.BTN-login {
+    border: none;
+    border-radius: 15px;
+    width: 120px;
+    height: 50px;
+    background-color: #f44336;
+    color: white;
+}
 .emailEmployee{
     margin-left: 15px;
     width : 500px;
 }
 .register {
-    margin-top: 50px;
+    margin-top: 20px;
     display : flex;
 }
 .title-register {
@@ -62,4 +71,9 @@
     font-size: 20px;
     text-decoration : none;
     color : #f44336;
+}
+.img {
+    display: flex;   
+    justify-content: center;
+    align-items: center;
 }

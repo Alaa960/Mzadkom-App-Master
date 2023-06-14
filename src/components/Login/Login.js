@@ -4,12 +4,13 @@ import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SetToken, SetUser } from '../../services/LocalStorage'
 import { Link, useNavigate } from 'react-router-dom'
-
+import LoginImg from '../../images/login.png'
 function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
     const [usernotefound, setUserNotFound] = useState('')
+    const [error, setError] = useState([])
     const data = {
         email: email,
         password: password,
@@ -25,19 +26,24 @@ function Login() {
                 }
 
             }).catch(err => {
-                setUserNotFound(err.response.data.error)
+                console.log(err.response.data.error)
+                setError(err.response.data.error)
             })
     }
     return (
-
         <Container>
             <div className='register-Logo'>
                 <h3 className='register-title'>Login</h3>
             </div>
             <Container className='form-register'>
                 <div className="FormRegister">
-                    <div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <h5 style={{ color: 'red', fontWeight: 'bold' }}>{usernotefound}</h5>
+                    <div className='img'>
+                        <img src={LoginImg} width={200} height={200} alt='login img' />
+                    </div>
+                    <div className='errs'>
+                        {error.map((err) => (
+                            <h6 style={{ color: 'red' }}>{err.msg}</h6>
+                        ))}
                     </div>
                     <Form>
                         <div className="formGroup">
@@ -65,14 +71,14 @@ function Login() {
                         </Form.Group>
 
                         {/* Button for add the employee */}
-                        <Button
+                        <button
                             className="mt-3 BTN-login"
                             type="button"
-                            variant="outline-danger"
+
                             onClick={RegisterUser}
                         >
                             Login
-                        </Button>
+                        </button>
                     </Form>
                     <div className='register'>
                         <h4 className='title-register'>Don't have an account?</h4>

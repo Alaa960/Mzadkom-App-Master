@@ -12,7 +12,9 @@ export default function AddProduct() {
     const [productTime, setProductTime] = useState('')
     const [productCategory, setProductCategory] = useState('')
     const [productDescription, setProductDescription] = useState('')
-    const [productPhoto, setProductPhoto] = useState([])
+    const [productPhoto, setProductPhoto] = useState([]) // store photos in array 
+    const [error, setError] = useState([]) //check if there an error
+    const [success, setSuccess] = useState('') //store the msg for addedd product
     const config = {
         headers: {
             token: getTokens(),
@@ -31,10 +33,10 @@ export default function AddProduct() {
     const AddProducts = () => {
         axios.post('http://localhost:3001/api/products/add', body, config)
             .then(res => {
-                console.log(res.data)
+                setSuccess(res.data.result)
             })
             .catch(err => {
-                console.error(err)
+                setError(err.response.data.error)
             })
     }
     return (
@@ -45,8 +47,11 @@ export default function AddProduct() {
                     <div className='col-6'>
                         <img src={AddProductImage} alt='add-image' width={500} height={600} />
                     </div>
-
                     <div className='col-6 inputs'>
+                        {error.map((err) => (
+                            <h6 style={{ color: 'red', position: 'relative' }}>{err.msg}</h6>
+                        ))}
+                        <div className='alert alert-success' role='alert'>{success}</div>
                         <div className='row'>
                             <div className='col-6'>
                                 <label className='form-label'>Product Name:</label>

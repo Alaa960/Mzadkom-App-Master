@@ -8,6 +8,7 @@ export default function EditProfile() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
+    const [seuccess, setSuccess] = useState('')
     const config = {
         headers: {
             token: getTokens()
@@ -21,11 +22,14 @@ export default function EditProfile() {
     const EditProfile = () => {
         axios.put(`http://localhost:3001/api/users/updateUser/${getUser()}`, data, config)
             .then(res => {
-                console.log(res.data)
+                setSuccess(res.data.success)
             })
     }
     return (
         <div>
+            <div className='success'>
+                <div className='alert alert-success' role='alert'>{seuccess}</div>
+            </div>
             <NavBar />
             <div className='edit-form'>
                 <form className='form p-5'>

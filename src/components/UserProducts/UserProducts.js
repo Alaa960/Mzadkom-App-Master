@@ -4,7 +4,6 @@ import { getTokens, getUser } from '../../services/LocalStorage'
 import NavBar from '../Navbar/Navbar'
 import EmptyProducts from '../EmpyProducts/EmptyProducts'
 import './UserProducts.css'
-import { useNavigate } from 'react-router-dom'
 export default function UserProducts() {
     const [userProducts, setUserProducts] = useState([])
     const config = {
