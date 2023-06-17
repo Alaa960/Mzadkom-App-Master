@@ -11,6 +11,10 @@ import Products from './components/Products/Products';
 import AddProduct from './components/AddProduct/AddProduct';
 import UserProducts from './components/UserProducts/UserProducts';
 import EditProfile from './components/EditProfile/EditProfile';
+import Admin from './components/Admin/Admin';
+import AllUsers from './components/allUsers/AllUsers';
+import AllProducts from './components/allProducts/AllProducts';
+import AllReports from './components/allreports/AllReports';
 function App() {
   return (
     <div>
@@ -26,6 +30,12 @@ function App() {
         <Route path='/addProduct' element={<AddProduct />} />
         <Route path='/yourproducts' element={<UserProducts />} />
         <Route path='/editprofile' element={<EditProfile />} />
+        <Route path='/admin' element={<Admin />} >
+          <Route path='users' element={<AllUsers />} />
+          <Route path='product' element={<AllProducts />} />
+          <Route path='reports' element={<AllReports />} />
+        </Route>
+
       </Routes>
     </div>
   );

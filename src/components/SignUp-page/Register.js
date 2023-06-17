@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Resgister.css'
 import { Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
-import NavBar from '../Navbar/Navbar'
 import { Link } from 'react-router-dom'
+import SignUpImg from '../../images/signup.png'
 function Register() {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const data = {
+    const data = { //data for register
         name: name,
         email: email,
         password: password,
@@ -34,64 +34,55 @@ function Register() {
             </div>
             <Container className='form-register'>
                 <div className="FormRegister">
-                    <Form>
-                        <div className="formGroup">
-                            {/* this input form for the employee name */}
-                            <Form.Group
-                                className="mt-3 nameEmployee"
-                                controlId="formBasicUserName"
-                            >
-                                <Form.Label>User Name</Form.Label>
-                                <Form.Control
-                                    value={name}
-                                    onChange={e => setName(e.target.value)}
-                                    type="text"
-                                    placeholder="Enter your name "
-                                />
-                            </Form.Group>
-                            {/* this input form for the employee email */}
-                            <Form.Group className="mt-3 emailEmployee">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    type="email"
-                                    placeholder="Enter your email"
-                                />
-                                <Form.Text>
-                                    We'll never share your email with anyone else.
-                                </Form.Text>
-                            </Form.Group>
+                    <div className='row'>
+                        <div className='col-4 mt-5'>
+                            <img src={SignUpImg} width={200} height={200} alt='signup-img' />
                         </div>
-                        {/* this input form for the employee passowrd */}
-                        <Form.Group className="mt-3">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                type="password"
-                                placeholder="Enter your password"
-                            />
-                        </Form.Group>
-                        <Form.Group className="mt-3">
-                            <Form.Label>Phone Number</Form.Label>
-                            <Form.Control
-                                value={phone}
-                                onChange={e => setPhone(e.target.value)}
-                                type="text"
-                                placeholder="Enter your phone number"
-                            />
-                        </Form.Group>
-                        {/* Button for add the employee */}
-                        <Button
-                            className="mt-3"
-                            type="button"
-                            variant="outline-danger"
-                            onClick={RegisterUser}
-                        >
-                            Resgister
-                        </Button>
-                    </Form>
+                        <div className='col-8 mt-5'>
+                            <div className='row mt-5'>
+                                <div className='col-6'>
+                                    <label className='form-label'>Your name :</label>
+                                    <input
+                                        className='form-control'
+                                        placeholder='Enter you name'
+                                        value={name}
+                                        onChange={e => setName(e.target.value)}
+                                    />
+                                </div>
+                                <div className='col-6'>
+                                    <label className='form-label'>Youe email :</label>
+                                    <input
+                                        className='form-control'
+                                        placeholder='Enter your email'
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className='row mt-5'>
+                                <div className='col-6'>
+                                    <label className='form-label'>Your password :</label>
+                                    <input
+                                        className='form-control'
+                                        placeholder='Enter your password'
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div className='col-6'>
+                                    <label className='form-lable'>Your phone number :</label>
+                                    <input
+                                        className='form-control'
+                                        placeholder='Enter your phone'
+                                        value={phone}
+                                        onChange={e => setPhone(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <button className=' btn-reg' onClick={RegisterUser}>Register</button>
+                        </div>
+
+                    </div>
                     <div className='Login'>
                         <h4 className='title-login'>Already have an account?</h4>
                         <Link className='btn-login' to='/'>Login Now !</Link>

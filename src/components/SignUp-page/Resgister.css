@@ -38,6 +38,16 @@
 .emailEmployee{
     margin-left: 15px;
 }
+.btn-reg {
+    border: none;
+    border-radius: 15px;
+    width: 120px;
+    height: 50px;
+    background-color: #f44336;
+    color: white;
+    margin-top: 50px;
+    margin-left: 300px;
+}
 .Login {
     display : flex;
 }

@@ -9,20 +9,19 @@ function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
-    const [usernotefound, setUserNotFound] = useState('')
     const [error, setError] = useState([])
     const data = {
         email: email,
         password: password,
     }
     //press button login
-    const RegisterUser = () => {
+    const Login = () => {
         axios.post('http://localhost:3001/api/auth/login', data)
             .then(res => {
                 SetToken(res.data)
                 SetUser(res.data)
                 if (res.status === 200) {
-                    { res.data.user.isAdmin === 0 ? navigate('../home') : navigate('../register') }
+                    { res.data.user.isAdmin === 0 ? navigate('../home') : navigate('../admin') }
                 }
 
             }).catch(err => {
@@ -75,7 +74,7 @@ function Login() {
                             className="mt-3 BTN-login"
                             type="button"
 
-                            onClick={RegisterUser}
+                            onClick={Login}
                         >
                             Login
                         </button>
